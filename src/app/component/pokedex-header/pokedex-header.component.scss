@@ -1,0 +1,15 @@
+header {
+    background-color: red;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    margin: 10px;
+
+    h1 {
+        margin-left: 20px;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+}
