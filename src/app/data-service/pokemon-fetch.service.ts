@@ -4,19 +4,19 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonFetchService {
   private readonly baseUrl = 'https://pokeapi.co/api/v2';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Method of getting multiple pokemon
   // Gets pokemon starting from the first in the pokedex
   // Only gets the name of the pokemon
   getPokemon() {
-    const limit = `3`;                                                  // Sets the limit on how many pokemon will be fetched
-    const urlManyPokemon = `${this.baseUrl}/pokemon?limit=${limit}`;    // Fetches pokemon with the "limit" paramter
+    const limit = `10`; // Sets the limit on how many pokemon will be fetched
+    const urlManyPokemon = `${this.baseUrl}/pokemon?limit=${limit}`; // Fetches pokemon with the "limit" paramter
     return this.http.get(urlManyPokemon);
   }
 
@@ -25,11 +25,11 @@ export class PokemonFetchService {
   getExtraPokemonData(name: string): Observable<Pokemon> {
     const urlPokemonName = `${this.baseUrl}/pokemon/${name}`;
     return this.http.get<any>(urlPokemonName).pipe(
-      map(response => ({
+      map((response) => ({
         name: response.name,
         id: response.id,
         picture: response.sprites.front_default,
-        types: response.types.map((type: any) => type.type.name)
+        types: response.types.map((type: any) => type.type.name),
       }))
     );
   }
@@ -42,4 +42,3 @@ interface Pokemon {
   picture: string;
   types: string[];
 }
-

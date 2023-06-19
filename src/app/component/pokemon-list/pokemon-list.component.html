@@ -1,1 +1,14 @@
-<p>pokemon-list works!</p>
+<!DOCTYPE html>
+
+
+<section>
+      <article *ngFor="let pokemon of pokemon">
+            <img alt="{{pokemon.name}}" [src]="pokemon.picture"/>
+            <h2>{{pokemon.name}}</h2>
+            <ul>
+                  <li *ngFor="let type of pokemon.types">
+                        {{type}}
+                  </li>
+            </ul>
+      </article>         
+</section>
