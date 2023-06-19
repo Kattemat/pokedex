@@ -15,7 +15,7 @@ export class PokemonFetchService {
   // Gets pokemon starting from the first in the pokedex
   // Only gets the name of the pokemon
   getPokemon() {
-    const limit = `10`; // Sets the limit on how many pokemon will be fetched
+    const limit = `151`; // Sets the limit on how many pokemon will be fetched
     const urlManyPokemon = `${this.baseUrl}/pokemon?limit=${limit}`; // Fetches pokemon with the "limit" paramter
     return this.http.get(urlManyPokemon);
   }
