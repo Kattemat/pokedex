@@ -1,0 +1,30 @@
+article {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 25%;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 25px;
+    align-items: center;
+
+    img {
+        margin: 10px;
+        max-height: 150px;
+        height: 150px;
+        max-width: 100px;
+        border-color: black;
+    }
+
+    div {
+        background-color: gray;
+        margin: 5px;
+        color: white;
+
+        p {
+            margin: 5px;
+            padding: 5px;
+        }
+    }
+}
