@@ -1,6 +1,7 @@
 import { SearchServiceService } from './../../services/search-service/search-service.service';
 import { Component, OnInit } from '@angular/core';
 import { PokemonFetchService } from 'src/app/services/data-service/pokemon-fetch.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -13,7 +14,8 @@ export class PokemonListComponent implements OnInit {
 
   constructor(
     private pokemonFetchService: PokemonFetchService,
-    private SearchServiceService: SearchServiceService
+    private SearchServiceService: SearchServiceService,
+    private router: Router
   ) {
     this.SearchServiceService.searchObservable.subscribe((term) => {
       this.searchTerm = term;
@@ -45,6 +47,10 @@ export class PokemonListComponent implements OnInit {
     return this.pokemon.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  goToDetail(pokemon: any) {
+    this.router.navigate([pokemon.name]);
   }
 
   //legger bakgrunsfarge på pokemon etter element type

@@ -10,10 +10,14 @@ section {
         box-sizing: border-box;
         padding: 10px;
         margin: 20px;
-        border-radius: 15px;
+        border-radius: 17px;
         align-items: center;
         max-width: 200px;
-        box-shadow: 1px 1px 1px 1px black;
+        box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        transition: all 0.5s;
+        user-select: none;
 
         .img-container {
             display: flex;
@@ -50,5 +54,14 @@ section {
                 margin: 5px;
             }
         }
+    }
+
+    article:hover {
+        border: 1px solid blac;
+        transform: scale(1.1);
+    }
+
+    article:active {
+        transform: scale(0.95) rotateZ(1.7deg);
     }
 }

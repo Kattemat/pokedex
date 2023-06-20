@@ -7,6 +7,14 @@ import { PokemonListComponent } from './component/pokemon-list/pokemon-list.comp
 import { PokedexHeaderComponent } from './component/pokedex-header/pokedex-header.component';
 import { ShowcaseComponent } from './component/showcase/showcase.component';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { PokeMonDetailComponent } from './component/poke-mon-detail/poke-mon-detail.component';
+
+const routes: Routes = [
+  { path: '', component: ShowcaseComponent },
+  { path: ':name', component: PokeMonDetailComponent },
+];
 
 @NgModule({
   declarations: [
@@ -14,8 +22,16 @@ import { FormsModule } from '@angular/forms';
     PokedexHeaderComponent,
     PokemonListComponent,
     ShowcaseComponent,
+    PokeMonDetailComponent,
   ],
-  imports: [HttpClientModule, BrowserModule, FormsModule],
+
+  imports: [
+    HttpClientModule,
+    CommonModule,
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -26,23 +26,22 @@ export class PokemonFetchService {
   getExtraPokemonData(name: string): Observable<Pokemon> {
     const urlPokemonName = `${this.baseUrl}/pokemon/${name}`;
     return this.http.get<any>(urlPokemonName).pipe(
-      
       // Using switchmap allows us to combine pokmemon and evolutionstages easier
-      switchMap(response => {
+      switchMap((response) => {
         // Maps the initial data before getting the evolutionstages
         const pokemon: Pokemon = {
           name: response.name,
           id: response.id,
           picture: response.sprites.front_default,
           types: response.types.map((type: any) => type.type.name), // One pokemon can have one or two typings
-          evolutionStages: [] // Sets blank
+          evolutionStages: [], // Sets blank
         };
 
         const urlSpecies = response.species.url;
         // Takes the response from "getEvolutionCHain" and maps it
         return this.getEvolutionChain(urlSpecies).pipe(
-          map(evolutionChain => {
-            const evolutionStages = this.extractEvolutionStages(evolutionChain);  // method to get the evolution stages
+          map((evolutionChain) => {
+            const evolutionStages = this.extractEvolutionStages(evolutionChain); // method to get the evolution stages
             pokemon.evolutionStages = evolutionStages;
             return pokemon; // Returns the pokemon object with the evolution stages
           })
@@ -54,8 +53,8 @@ export class PokemonFetchService {
   // Calls the species url to get the evolution chain
   private getEvolutionChain(speciesUrl: string): Observable<any> {
     return this.http.get<any>(speciesUrl).pipe(
-      map(response => response.evolution_chain.url),
-      switchMap(evolutionChainUrl => this.http.get<any>(evolutionChainUrl))
+      map((response) => response.evolution_chain.url),
+      switchMap((evolutionChainUrl) => this.http.get<any>(evolutionChainUrl))
     );
   }
 
@@ -69,13 +68,16 @@ export class PokemonFetchService {
 
   // Recursive traversal method to find all evolution stages of a pokemon
   // Gets the chain and object it will traverse
-  private traverseEvolutionChain(chain: any, evolutionStages: EvolutionStage[]): void {
+  private traverseEvolutionChain(
+    chain: any,
+    evolutionStages: EvolutionStage[]
+  ): void {
     const speciesName = chain.species.name;
     const evolvesTo = chain.evolves_to;
 
     // Pushes the names into the array, could be expanded to collect more info (just unsure how to do that)
     evolutionStages.push({
-      name: speciesName
+      name: speciesName,
     });
 
     // Checks to see if there are more pokemon it evolves to
@@ -85,7 +87,6 @@ export class PokemonFetchService {
       });
     }
   }
-
 }
 
 // Response interface

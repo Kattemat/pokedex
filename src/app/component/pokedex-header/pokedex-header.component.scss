@@ -17,15 +17,21 @@ header {
         font-family: "Poket Monk", sans-serif;
         margin-left: 20px;
         color: white;
+        cursor: pointer;
+        transition: all 0.5s;
         font-weight: bold;
+    }
+    h1:hover {
+        transform: scale(1.1);
     }
 
     input {
-        margin: 10px;
+        margin: 20px;
         border: none;
         outline: none;
         border-radius: 15px;
         padding: 1em;
+        transition: all 0.5s;
         background-color: #ccc;
         box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
     }
