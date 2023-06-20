@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
-<input [(ngModel)]="searchTerm" placeholder="Search for pokemon" />
-
 <section>
       <article *ngFor="let pokemon of search()" [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? getColor(pokemon?.types[0]) : 'white'}">
-            <img alt="{{pokemon?.name}}" [src]="pokemon?.picture"/>
+            <div class="img-container">
+                  <img alt="{{pokemon?.name}}" [src]="pokemon?.picture" [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? getColor(pokemon?.types[0]) : 'white'}"/>
+            </div>
             <h2>{{pokemon.name}}</h2>
-            <p *ngFor="let type of pokemon?.types">
-                  {{type}}
-            </p>
+            <div class="type-container">      
+                  <b *ngFor="let type of pokemon?.types">
+                        {{type}}
+                  </b>
+            </div>
       </article>        
 </section>

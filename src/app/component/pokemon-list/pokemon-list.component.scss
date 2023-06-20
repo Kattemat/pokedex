@@ -9,28 +9,45 @@ section {
         flex-direction: column;
         box-sizing: border-box;
         padding: 10px;
-        background-color: white;
         margin: 20px;
-        border-radius: 25px;
+        border-radius: 15px;
         align-items: center;
-        max-width: 250px;
+        max-width: 200px;
+        box-shadow: 1px 1px 1px 1px black;
 
-        img {
-            margin: 10px;
-            max-height: 150px;
-            height: 200px;
-            max-width: 100px;
-            border-color: black;
+        .img-container {
+            display: flex;
+            justify-content: center;
+
+            img {
+                margin: 10px;
+                max-height: 150px;
+                height: 200px;
+                max-width: 200px;
+                width: 100%;
+            }
         }
 
-        div {
-            background-color: gray;
+        h2 {
+            text-transform: uppercase;
             margin: 5px;
-            color: white;
+        }
 
-            p {
+        .type-container {
+            display: flex;
+            justify-content: center;
+            background-color: #587c99;
+            border-radius: 25px;
+            margin: 5px;
+            padding: 10px;
+            width: 100%;
+            max-width: 150px;
+            box-shadow: 0 1px 0 1px black;
+
+            b {
+                text-transform: uppercase;
+                color: black;
                 margin: 5px;
-                padding: 5px;
             }
         }
     }

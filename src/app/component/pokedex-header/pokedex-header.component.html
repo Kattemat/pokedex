@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
 <header>
-    <h1>PokeDex</h1>
+    <h1>PokéDex</h1>
+    <input class="input" autocomplete="off" name="text" [(ngModel)]="term" (input)="updateSearchTerm()" placeholder="Search for Pokemon" />
 </header>

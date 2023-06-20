@@ -1,15 +1,53 @@
+@font-face {
+    font-family: Poket Monk;
+    src: url("./assets/Pocket\ Monk.otf");
+}
+
 header {
-    background-color: red;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f62f63;
     height: 75px;
     display: flex;
     align-items: center;
-    border-radius: 25px;
-    margin: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
 
     h1 {
+        font-family: "Poket Monk", sans-serif;
         margin-left: 20px;
         color: white;
         font-weight: bold;
-        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+
+    input {
+        margin: 10px;
+        border: none;
+        outline: none;
+        border-radius: 15px;
+        padding: 1em;
+        background-color: #ccc;
+        box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    .input:focus {
+        background-color: white;
+        transform: scale(1.05);
+        box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    header h1 {
+        margin: 10px 0;
+    }
+
+    header input {
+        margin: 10px 0;
     }
 }
