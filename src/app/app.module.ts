@@ -7,6 +7,7 @@ import { PokemonListComponent } from './component/pokemon-list/pokemon-list.comp
 import { PokedexHeaderComponent } from './component/pokedex-header/pokedex-header.component';
 import { ShowcaseComponent } from './component/showcase/showcase.component';
 import { FormsModule } from '@angular/forms';
+import { PokemonIndividualComponent } from './component/pokemon-individual/pokemon-individual.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     PokedexHeaderComponent,
     PokemonListComponent,
     ShowcaseComponent,
+    PokemonIndividualComponent,
   ],
   imports: [HttpClientModule, BrowserModule, FormsModule],
   providers: [],
