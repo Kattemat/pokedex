@@ -18,6 +18,7 @@ section {
         cursor: pointer;
         transition: all 0.5s;
         user-select: none;
+        border: 1px solid black;
 
         .img-container {
             display: flex;
@@ -40,18 +41,20 @@ section {
         .type-container {
             display: flex;
             justify-content: center;
-            background-color: lightgray;
+            background-color: bisque;
             border-radius: 17px;
             border: 1px solid black;
             margin: 5px;
             padding: 10px;
             width: 100%;
-            max-width: 150px;
 
             b {
                 text-transform: uppercase;
-                color: black;
-                margin: 5px;
+                margin: 2px;
+                padding: 5px;
+                font-size: 17px;
+                letter-spacing: 1px;
+                text-shadow: 0.07em 0 black, 0 0.07em black, -0.07em 0 black, 0 -0.07em black;
             }
         }
     }

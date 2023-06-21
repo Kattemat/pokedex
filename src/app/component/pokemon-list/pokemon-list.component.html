@@ -10,9 +10,10 @@
             </div>
             <h2>{{pokemon.name}}</h2>
             <div class="type-container">      
-                  <b *ngFor="let type of pokemon?.types">
+                  <b *ngFor="let type of pokemon?.types" 
+                        [ngStyle]="{'color': type ? getColor(type) : 'white'}">
                         {{type}}
-                  </b>
+                    </b>
             </div>
       </article>        
 </section>

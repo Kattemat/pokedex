@@ -17,9 +17,11 @@ header {
         cursor: pointer;
         transition: all 0.5s;
         font-weight: bold;
+        text-shadow: 0.07em 0 black, 0 0.07em black, -0.07em 0 black, 0 -0.07em black;
     }
     h1:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
+        color: yellow;
     }
 
     input {
@@ -35,7 +37,6 @@ header {
     .input:focus {
         background-color: white;
         transform: scale(1.05);
-        box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
     }
 }
 
