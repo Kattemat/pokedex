@@ -3,6 +3,7 @@ import { SearchServiceService } from './../../services/search-service/search-ser
 import { Component, OnInit } from '@angular/core';
 import { PokemonFetchService } from 'src/app/services/data-service/pokemon-fetch.service';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -28,19 +29,18 @@ export class PokemonListComponent implements OnInit {
   // For each pokemon it gets, it will also call for additional information with the 'getExtraPokemonData' method
   ngOnInit(): void {
     this.pokemonFetchService.getPokemon().subscribe((response: any) => {
-      response.results.forEach((result) => {
-        // tsconfig.json had to be changed for this to work
-        this.pokemonFetchService
-          .getExtraPokemonData(result.name) // Gets additional data based on the name of the pokemon, can be configured to work with ID as well
-          .subscribe((uniqResponse: any) => {
-            this.pokemon.push(uniqResponse);
-          });
+      const observables = response.results.map(
+        (result: any) =>
+          this.pokemonFetchService.getExtraPokemonData(result.name) // Gets additional data based on the name of the pokemon, can be configured to work with ID as well
+      );
+      //venter på at arrayen skal være ferdig loadet før den returnerer
+      forkJoin(observables).subscribe((pokemonData: any[]) => {
+        this.pokemon = pokemonData;
       });
-      console.log(this.pokemon); // Sends the response to the console, only for testing/ viewing
     });
   }
 
-  //sjekker om søket matcher navnet på pokemon
+  //gir bruker pokemon som matcher navn
   search() {
     if (!this.searchTerm) {
       return this.pokemon;
@@ -51,10 +51,12 @@ export class PokemonListComponent implements OnInit {
     );
   }
 
+  //navigering ved click på pokemon
   goToDetail(pokemon: any) {
     this.router.navigate([pokemon.name]);
   }
 
+  //kjører colorservice funskjon for å sette farger etter hviken type en pokemon er
   getColor(type: string) {
     return this.ColorService.getColor(type);
   }

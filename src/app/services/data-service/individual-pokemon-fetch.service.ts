@@ -3,16 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, map } from 'rxjs';
 
 /*
-*   Service that gets data for an individual pokemon
-*     -General info (pokemon name, id, type)
-*     -Pictures (front and back sprites, shiny sprite and official artwork)
-*     -Evolution info (all evolution stages)
-*
-*/
-
+ *   Service that gets data for an individual pokemon
+ *     -General info (pokemon name, id, type)
+ *     -Pictures (front and back sprites, shiny sprite and official artwork)
+ *     -Evolution info (all evolution stages)
+ *
+ */
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IndividualPokemonFetchService {
   private readonly baseUrl = 'https://pokeapi.co/api/v2';
@@ -25,33 +24,33 @@ export class IndividualPokemonFetchService {
   getIndividualPokemonData(name: string): Observable<Pokemon> {
     const urlPokemonName = `${this.baseUrl}/pokemon/${name}`;
     return this.http.get<any>(urlPokemonName).pipe(
-      
       // Using switchmap allows us to combine pokemon and evolutionstages easier
-      switchMap(response => {
+      switchMap((response) => {
         // Maps the initial data before getting the evolutionstages
         const pokemon: Pokemon = {
           name: response.name,
           id: response.id,
-          picture_official: response.sprites.other['official-artwork'].front_default,
+          picture_official:
+            response.sprites.other['official-artwork'].front_default,
           picture_front: response.sprites.front_default,
           picture_back: response.sprites.back_default,
           picture_shiny: response.sprites.front_shiny,
           types: response.types.map((type: any) => type.type.name), // One pokemon can have one or two typings
           evolutionStages: [], // Sets blank
           flavorTextEntries: [],
-          randomFlavorText: ''
+          randomFlavorText: '',
         };
 
         const urlSpecies = response.species.url;
         // Takes the response from "getEvolutionCHain" and maps it
         return this.getEvolutionChain(urlSpecies).pipe(
-          switchMap(evolutionChain => {
+          switchMap((evolutionChain) => {
             const evolutionStages = this.extractEvolutionStages(evolutionChain); // method to get the evolution stages
             pokemon.evolutionStages = evolutionStages;
-            
+
             const speciesUrl = `${this.baseUrl}/pokemon-species/${response.id}`;
             return this.getPokemonSpeciesData(speciesUrl).pipe(
-              map(flavorTextEntries => {
+              map((flavorTextEntries) => {
                 if (flavorTextEntries && flavorTextEntries.length > 0) {
                   pokemon.flavorTextEntries = flavorTextEntries;
                   pokemon.randomFlavorText = this.getRandomFlavorText(pokemon);
@@ -68,8 +67,8 @@ export class IndividualPokemonFetchService {
   // Calls the species url to get the evolution chain
   private getEvolutionChain(speciesUrl: string): Observable<any> {
     return this.http.get<any>(speciesUrl).pipe(
-      map(response => response.evolution_chain.url),
-      switchMap(evolutionChainUrl => this.http.get<any>(evolutionChainUrl))
+      map((response) => response.evolution_chain.url),
+      switchMap((evolutionChainUrl) => this.http.get<any>(evolutionChainUrl))
     );
   }
 
@@ -83,7 +82,10 @@ export class IndividualPokemonFetchService {
 
   // Recursive traversal method to find all evolution stages of a pokemon
   // Gets the chain and object it will traverse
-  private traverseEvolutionChain(chain: any, evolutionStages: EvolutionStage[]): void {
+  private traverseEvolutionChain(
+    chain: any,
+    evolutionStages: EvolutionStage[]
+  ): void {
     const speciesName = chain.species.name;
     const evolvesTo = chain.evolves_to;
 
@@ -101,22 +103,23 @@ export class IndividualPokemonFetchService {
   }
 
   // Gets flavor text entries for a given species URL
-private getPokemonSpeciesData(speciesUrl: string): Observable<FlavorTextEntry[]> {
-  return this.http.get<any>(speciesUrl).pipe(
-    map(response => response.flavor_text_entries)
-  );
-}
-
-// Gets the first flavor text from the flavor text entries
-private getRandomFlavorText(pokemon: Pokemon): string {
-  const flavorTextEntries = pokemon.flavorTextEntries;
-
-  if (flavorTextEntries && flavorTextEntries.length > 0) {
-    return flavorTextEntries[0].flavor_text;
-  }
-  return '';
+  private getPokemonSpeciesData(
+    speciesUrl: string
+  ): Observable<FlavorTextEntry[]> {
+    return this.http
+      .get<any>(speciesUrl)
+      .pipe(map((response) => response.flavor_text_entries));
   }
 
+  // Gets the first flavor text from the flavor text entries
+  private getRandomFlavorText(pokemon: Pokemon): string {
+    const flavorTextEntries = pokemon.flavorTextEntries;
+
+    if (flavorTextEntries && flavorTextEntries.length > 0) {
+      return flavorTextEntries[0].flavor_text;
+    }
+    return '';
+  }
 }
 
 // Response interface

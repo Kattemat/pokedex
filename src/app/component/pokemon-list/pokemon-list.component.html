@@ -1,7 +1,10 @@
 
 
 <section>
-      <article *ngFor="let pokemon of search()" (click)="goToDetail(pokemon)" [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? getColor(pokemon?.types[0]) : 'white'}">
+      <article *ngFor="let pokemon of search()" (click)="goToDetail(pokemon)" 
+            [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? 
+                  getColor(pokemon?.types[0]) : 'white'}">
+                  
             <div class="img-container">
                   <img alt="{{pokemon?.name}}" [src]="pokemon?.picture" />
             </div>
