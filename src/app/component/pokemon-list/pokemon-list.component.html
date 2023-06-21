@@ -1,0 +1,18 @@
+
+
+<section>
+      <article *ngFor="let pokemon of search()" (click)="goToDetail(pokemon)" 
+            [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? 
+                  getColor(pokemon?.types[0]) : 'white'}">
+                  
+            <div class="img-container">
+                  <img alt="{{pokemon?.name}}" [src]="pokemon?.picture" />
+            </div>
+            <h2>{{pokemon.name}}</h2>
+            <div class="type-container">      
+                  <b *ngFor="let type of pokemon?.types">
+                        {{type}}
+                  </b>
+            </div>
+      </article>        
+</section>

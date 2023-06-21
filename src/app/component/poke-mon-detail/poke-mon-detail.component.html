@@ -1,0 +1,27 @@
+
+
+<main>
+    <section>
+        <article class="poke-card">
+            <img alt="{{pokemon?.name}}" [src]="pokemon?.picture_official"/>   
+            <div>
+                <h2>{{pokemon?.name}}</h2>
+                <p>{{pokemon?.randomFlavorText}}</p>
+                <div class="type-container">
+                    <b *ngFor="let type of pokemon?.types" [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? getColor(pokemon?.types[0]) : 'white'}">
+                        {{type}}
+                    </b>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="evoStages">
+        <h2>Evolution`s {{pokemon?.name}}</h2>
+        <article>
+            <div *ngFor="let evoStage of pokemon?.evolutionStages" (click)="goToDetail(evoStage)">
+                <img alt="{{evoStage?.name}}" [src]="evoStage?.sprite" />
+                <p>{{evoStage?.name}}</p>
+            </div>
+        </article>
+    </section>
+</main>
