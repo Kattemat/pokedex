@@ -19,6 +19,7 @@
         <h2>Evolution`s {{pokemon?.name}}</h2>
         <article>
             <div *ngFor="let evoStage of pokemon?.evolutionStages" (click)="goToDetail(evoStage)">
+                <img alt="{{evoStage?.name}}" [src]="evoStage?.sprite" />
                 <p>{{evoStage?.name}}</p>
             </div>
         </article>
