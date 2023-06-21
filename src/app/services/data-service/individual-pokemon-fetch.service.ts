@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, map } from 'rxjs';
+import { PokemonFetchService } from 'src/app/services/data-service/pokemon-fetch.service';
 
 /*
 *   Service that gets data for an individual pokemon
@@ -87,17 +88,23 @@ export class IndividualPokemonFetchService {
     const speciesName = chain.species.name;
     const evolvesTo = chain.evolves_to;
 
-    // Pushes the names into the array, could be expanded to collect more info (just unsure how to do that)
-    evolutionStages.push({
-      name: speciesName,
-    });
+    const sprite = this.getPokemonPicture(speciesName);
 
-    // Checks to see if there are more pokemon it evolves to
-    if (evolvesTo && evolvesTo.length > 0) {
-      evolvesTo.forEach((evolution: any) => {
-        this.traverseEvolutionChain(evolution, evolutionStages); // recursive
+    // Sends a call to get just the picture of the pokemon
+    this.getPokemonPicture(speciesName).subscribe(sprite => {
+      // Pushes the names into the array, could be expanded to collect more info (just unsure how to do that)
+      evolutionStages.push({
+        name: speciesName,
+        sprite: sprite
       });
-    }
+
+      // Checks to see if there are more pokemon it evolves to
+      if (evolvesTo && evolvesTo.length > 0) {
+        evolvesTo.forEach((evolution: any) => {
+          this.traverseEvolutionChain(evolution, evolutionStages); // recursive
+        });
+      }
+    });
   }
 
   // Gets flavor text entries for a given species URL
@@ -116,6 +123,13 @@ private getRandomFlavorText(pokemon: Pokemon): string {
   }
   return '';
   }
+
+private getPokemonPicture(name: string): Observable<string> {
+  const urlPokemonName = `${this.baseUrl}/pokemon/${name}`;
+  return this.http.get<any>(urlPokemonName).pipe(
+    map(response => response.sprites.front_default)
+  );
+}
 
 }
 
@@ -136,6 +150,7 @@ export interface Pokemon {
 // Response interface for evolution stages
 interface EvolutionStage {
   name: string;
+  sprite: string;
 }
 
 // Interface for the flavor text (also known as pokedex entry)
