@@ -1,9 +1,15 @@
 <section>
     <article>
-        <img alt="{{pokemon?.name}}" [src]="pokemon?.picture"/>
-        <h2>{{pokemon?.name}}</h2>
-        <div *ngFor="let type of pokemon?.types">
-            <b>{{type}}</b>
+        <img alt="{{pokemon?.name}}" [src]="pokemon?.picture"/>   
+        <div>
+            <h2>{{pokemon?.name}}</h2>
+            <p>Her kommer det en description av pokemonen</p>
+            <b *ngFor="let type of pokemon?.types" [ngStyle]="{'background-color': pokemon?.types?.length > 0 ? getColor(pokemon?.types[0]) : 'white'}">
+                {{type}}
+            </b>
         </div>
+</article>
+<article>
+    Content
 </article>
 </section>

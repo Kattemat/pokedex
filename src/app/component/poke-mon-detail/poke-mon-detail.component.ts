@@ -1,3 +1,4 @@
+import { ColorService } from './../../services/colors/color.service';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class PokeMonDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private PokemonFetchService: PokemonFetchService
+    private PokemonFetchService: PokemonFetchService,
+    private ColorService: ColorService
   ) {}
 
   ngOnInit() {
@@ -26,5 +28,9 @@ export class PokeMonDetailComponent implements OnInit {
       .subscribe((pokemon) => {
         this.pokemon = pokemon;
       });
+  }
+
+  getColor(type: string) {
+    return this.ColorService.getColor(type);
   }
 }

@@ -5,22 +5,48 @@ section {
 
     article {
         display: flex;
-        flex-direction: column;
         background-color: white;
         justify-content: center;
+        max-width: 400px;
+        width: 100%;
+        margin: 20px;
+        justify-content: space-between;
 
-        h2 {
-            margin: 10px;
+        img {
+            width: 100%;
+            max-width: 300px;
+            background-color: lightgray;
+            margin: 5px;
         }
 
         div {
             display: flex;
-
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            margin: 5px;
+            text-align: center;
+
+            h2 {
+                margin: 10px;
+            }
+
+            p {
+                margin: 5px;
+            }
 
             b {
                 margin: 5px;
             }
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            margin-bottom: 1em;
         }
     }
 }

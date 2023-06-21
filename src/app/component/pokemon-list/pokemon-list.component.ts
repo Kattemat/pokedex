@@ -1,3 +1,4 @@
+import { ColorService } from './../../services/colors/color.service';
 import { SearchServiceService } from './../../services/search-service/search-service.service';
 import { Component, OnInit } from '@angular/core';
 import { PokemonFetchService } from 'src/app/services/data-service/pokemon-fetch.service';
@@ -15,7 +16,8 @@ export class PokemonListComponent implements OnInit {
   constructor(
     private pokemonFetchService: PokemonFetchService,
     private SearchServiceService: SearchServiceService,
-    private router: Router
+    private router: Router,
+    private ColorService: ColorService
   ) {
     this.SearchServiceService.searchObservable.subscribe((term) => {
       this.searchTerm = term;
@@ -53,43 +55,7 @@ export class PokemonListComponent implements OnInit {
     this.router.navigate([pokemon.name]);
   }
 
-  //legger bakgrunsfarge på pokemon etter element type
   getColor(type: string) {
-    switch (type) {
-      case 'normal':
-        return '#A8A77A';
-      case 'fire':
-        return '#EE8130';
-      case 'water':
-        return '#6390F0';
-      case 'electric':
-        return '#F7D02C';
-      case 'grass':
-        return '#7AC74C';
-      case 'ice':
-        return '#96D9D6';
-      case 'ground':
-        return '#E2BF65';
-      case 'flying':
-        return '#A98FF3';
-      case 'fighting':
-        return '#C22E28';
-      case 'psychic':
-        return '#F95587';
-      case 'rock':
-        return '#F95587';
-      case 'ghost':
-        return '#E2BF65';
-      case 'dragon':
-        return '#6F35FC';
-      case 'fairy':
-        return '#D685AD';
-      case 'bug':
-        return '#789860';
-      case 'poison':
-        return '#A33EA1';
-      default:
-        return 'white';
-    }
+    return this.ColorService.getColor(type);
   }
 }
