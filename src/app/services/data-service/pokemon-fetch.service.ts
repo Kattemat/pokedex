@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-
 /*
-*   Service that gets data for a list of pokemon
-*     -General info (pokemon name, id, types)
-*     -Pictures (front and back sprites)
-*
-*/
+ *   Service that gets data for a list of pokemon
+ *     -General info (pokemon name, id, types)
+ *     -Pictures (front and back sprites)
+ *
+ */
 
 @Injectable({
   providedIn: 'root',
@@ -34,10 +33,10 @@ export class PokemonFetchService {
     const urlPokemonName = `${this.baseUrl}/pokemon/${name}`;
     return this.http.get<any>(urlPokemonName).pipe(
       map((response) => ({
-          name: response.name,
-          id: response.id,
-          picture: response.sprites.front_default,
-          types: response.types.map((type: any) => type.type.name), // One pokemon can have one or two typings
+        name: response.name,
+        id: response.id,
+        picture: response.sprites.front_default,
+        types: response.types.map((type: any) => type.type.name), // One pokemon can have one or two typings
       }))
     );
   }
