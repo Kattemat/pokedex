@@ -1,4 +1,3 @@
-import { PokemonIndividualComponent } from './component/pokemon-individual/pokemon-individual.component';
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +23,6 @@ const routes: Routes = [
     PokemonListComponent,
     ShowcaseComponent,
     PokeMonDetailComponent,
-    PokemonIndividualComponent,
   ],
 
   imports: [
